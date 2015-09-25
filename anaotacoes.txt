@@ -1,0 +1,31 @@
+API de servlet:
+    Base de funcionamento do java com servidores. Web app
+    Os Frameworks Java Web são baseados na API de Servlet.
+    Versão usada: 3.0 (Versão 4.0 prevista)
+
+Importar projeto existente no Eclipse:
+File -> Import -> Existing project into workspace
+
+Rodar o projeto:
+Clique direito -> Run as.. -> Run on Server (Vai se configurar um servidor)
+
+Ao acessar a web app, o servidor procura na pasta 'web-content' o 'index.html'
+que será a pagina inicial.
+
+WEB-INF: diretorio escondido contendo arquivos importantes
+    - web.xml: arquivo de configurações do projeto
+    - lib: diretorio contendo blibliotecas (.jar) usadas no projeto
+    - classes: diretorio oculto contendo as classes (.class)
+
+Pacote de servlets: Java resorces -> src/main/java
+
+CLASSES SERVLETS:
+Classes servlets precisam estender HttpServlet
+    Ex: public class BuscaEmpresa extends HttpServlet {}
+Ficam acessiveis através do anottation:
+    @WebServlet(urlPatterns="/busca") -> localhost:8080/nome_do_projeto/busca
+Sobreescrever o metodo 'doGet()'
+    Metodo getWriter do response devolve um objeto onde se pode escrever documentos html
+    Ex: PrintWriter w = resp.getWriter(); (resp é o objeto Response)
+        w.println("<html><body>Resposta</body></html>");
+    Pegando parametros de GET: req.getParameter("nome_do_param")  -> req é o objeto request
