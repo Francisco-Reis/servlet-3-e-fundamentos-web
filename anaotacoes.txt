@@ -29,3 +29,12 @@ Sobreescrever o metodo 'doGet()'
     Ex: PrintWriter w = resp.getWriter(); (resp é o objeto Response)
         w.println("<html><body>Resposta</body></html>");
     Pegando parametros de GET: req.getParameter("nome_do_param")  -> req é o objeto request
+
+AUDITORIA SERVLET:
+Implementam interface Filter da API Servlet.
+    Implementa: destroy(),init(),doFilter();
+doFilter(): recebe request, response e uma serie de filtros
+            Os requests e reponses são genéricos (não HTTP), é necessario fazer um cast
+            HttpServletRequest x = (HttpServletRequest) req
+Anotation da classe:
+@WebFilter(urlPatterns="/*") -- Pra pegar tudo.
