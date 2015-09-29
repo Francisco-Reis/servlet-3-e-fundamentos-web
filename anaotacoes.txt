@@ -38,3 +38,15 @@ doFilter(): recebe request, response e uma serie de filtros
             HttpServletRequest x = (HttpServletRequest) req
 Anotation da classe:
 @WebFilter(urlPatterns="/*") -- Pra pegar tudo.
+
+Usuario de testes:
+email: guilherme.silveira@alura.com.br
+senha: silveira
+
+COOKIES:
+Armazenam info no lado do cliente, pra transitar entre requisições:
+Ex: informações de usuário logado.
+Cokkie c = new Cookie("nome","valor") // o nome do cookkie por padrao é separado por pontos Ex: "alura.user"
+resp.addCookie(c);
+Os COOKIEs por padrão sempre são mandandos de volta pro servidor assim que criados.
+IMPORTANTE: Manter sempre o cookie pequeno.
