@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(urlPatterns="/*")
 public class FiltroDeAuditoria implements Filter {
@@ -24,8 +25,9 @@ public class FiltroDeAuditoria implements Filter {
 			throws IOException, ServletException {
 		
 		HttpServletRequest req = (HttpServletRequest) arg0;
+		HttpServletResponse resp = (HttpServletResponse) arg1;
 		
-		String usuario = getUsuario(req);
+		String usuario = getUsuario(req, resp);
 		
 		String requestURI = req.getRequestURI();
 		System.out.println("Usuario "+ usuario +" acessou: " + requestURI);
@@ -34,19 +36,27 @@ public class FiltroDeAuditoria implements Filter {
 		arg2.doFilter(arg0, arg1);
 	}
 	
-	private String getUsuario(HttpServletRequest req) {
-		Cookie[] cookies = req.getCookies();
-		if (cookies == null) {
+	private String getUsuario(HttpServletRequest req, HttpServletResponse resp) {
+		Cookie cookie = new Cookies(req.getCookies()).getUsuarioLogado();
+		if (cookie == null){
 			return "<deslogado>";
 		} else {
-			for (Cookie cookie : cookies) {
-				if(cookie.getName().equals("usuario.logado")){
-					return cookie.getValue();
-				}
-			}
+			cookie.setMaxAge(10 * 60);
+			resp.addCookie(cookie);
+			return cookie.getValue();
 		}
-		
-		return "<deslogado>";
+//		Cookie[] cookies = req.getCookies();
+//		if (cookies == null) {
+//			return "<deslogado>";
+//		} else {
+//			for (Cookie cookie : cookies) {
+//				if(cookie.getName().equals("usuario.logado")){
+//					return cookie.getValue();
+//				}
+//			}
+//		}
+//		
+//		return "<deslogado>";
 	}
 
 	@Override
