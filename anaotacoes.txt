@@ -56,3 +56,24 @@ Tempo padrão de duração: até navegador fechar
 Alterar a duração: cookie.setMaxAge(em segundos)
 Para adicionar mais tempo, o cookie precisa ser sobreescrito.
 Para remover o cookie, sobrescrever com tempo zero.
+
+=== SESSION ===
+Implementação da API Servlet do lado do servidor que já contem implementações como controle de
+login de usuario.
+Faz coisas automaticas como controle de COOKIEs e CONCORRENCIA.
+Ex:
+HttpSession session = req.getSession();
+session.setAttribute(string,objeto);
+
+session.removeAttribute() -> remove apenas um atributo
+session.invalidate() -> mata a sessão
+
+SERVLETS: são instanciadas apenas uma vez no servidor, e nao uma pra cada cliente.
+
+=== REdirecionar ====
+Tirar os htmls das Servlets e deixar em paginas htmls, e direcionar com o código:
+Redirecionamentnto publico pelo cliente
+> resp.sendRedirect("pagina.html");
+Redir. pelo servidor, com pagina protegida no WEB-INF.
+> RequestDispatcher x = resp.getRequestDispatcher("WEB-INF/paginas/site.html");
+> x.forward(req,resp);

@@ -13,6 +13,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.alura.gerenciador.Usuario;
+
 @WebFilter(urlPatterns="/*")
 public class FiltroDeAuditoria implements Filter {
 
@@ -37,13 +39,15 @@ public class FiltroDeAuditoria implements Filter {
 	}
 	
 	private String getUsuario(HttpServletRequest req, HttpServletResponse resp) {
-		Cookie cookie = new Cookies(req.getCookies()).getUsuarioLogado();
-		if (cookie == null){
+		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario.logado");
+		
+//		Cookie cookie = new Cookies(req.getCookies()).getUsuarioLogado();
+		if (usuario == null){
 			return "<deslogado>";
 		} else {
-			cookie.setMaxAge(10 * 60);
-			resp.addCookie(cookie);
-			return cookie.getValue();
+//			cookie.setMaxAge(10 * 60);
+//			resp.addCookie(cookie);
+			return usuario.getEmail();
 		}
 //		Cookie[] cookies = req.getCookies();
 //		if (cookies == null) {
