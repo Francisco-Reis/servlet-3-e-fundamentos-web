@@ -70,10 +70,59 @@ session.invalidate() -> mata a sessão
 
 SERVLETS: são instanciadas apenas uma vez no servidor, e nao uma pra cada cliente.
 
-=== REdirecionar ====
+=== Redirecionar ====
 Tirar os htmls das Servlets e deixar em paginas htmls, e direcionar com o código:
 Redirecionamentnto publico pelo cliente
 > resp.sendRedirect("pagina.html");
 Redir. pelo servidor, com pagina protegida no WEB-INF.
 > RequestDispatcher x = resp.getRequestDispatcher("WEB-INF/paginas/site.html");
 > x.forward(req,resp);
+
+=== Passando parametros pra pagina JSP ====
+As paginas JSP são paginas HTML dinamicas que suportam atributos.
+Setando atributos no request
+> req.setAttribute(empresa, objeto_empresa)
+No JSP, para mostrar o atributo:
+> ${empresa}
+Pra pegar um atributo do objeto em si podemos usar:
+> ${empresa.getNome()}
+> ${empresa.nome} --> Expression Language
+
+As variaveis acessiveis na JSP são procuradas na seguinte ordem:
+1º- Request
+2º- Session
+
+==== TABLIBS ====
+Bibliotecas de tags que podem ser usadas dinamicamente no JSP
+Devem ser importadas como pacotes
+Exemplo taglib
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --> taglib JSTL
+Essa taglib tem q estar no diretorio WEB-INF/lib
+JSTL é a tablib padrão do JSP
+
+exemplo ForEach no JSP:
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+...
+<ul>
+<c:forEach var="empresa" items="${empresas}">
+    <li>${empresa.id}: ${empresa.nome}</li>
+</c:forEach>
+</ul>
+
+exemplo if:
+<c:if test="${not empty usuarioLogado}">
+<p>Logado como ${usuarioLogado.email}</p>
+</c:if>
+
+===== SERVLET MASTER ======
+Podemos fazer uma unica servlet que faça todo o serviço. Todas as req/resp passarão por ela
+Deve-se instanciar o metodo 'service' que já faz o doGet e o doPost. NÂO invocar super
+
+Instanciar uma classe em tempo de execução usando o seguinte exemplo:
+Class type = Class.forName(nomeDaClasse);
+Tarefa tarefa = (Tarefa) type.newInstance(); --> nova interface Tarefa deve ser criada
+
+==== FRAMEWORKS MVC =====
+O modelo MVC é o mais utilizado no mercado:
+- vraptor
+- spring mvc

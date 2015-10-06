@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,7 @@ public class Login extends HttpServlet {
 			writer.println("<html><body>Usuario invalido</body></html>");
 		} else {
 			HttpSession session = req.getSession();
-			session.setAttribute("usuario.logado", usuario);
+			session.setAttribute("usuarioLogado", usuario);
 			
 //			Cookie cookie = new Cookie("usuario.logado", email);
 //			cookie.setMaxAge(10 * 60);

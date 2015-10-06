@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns="/logout")
-public class Logout extends HttpServlet {
+public class Logout implements Tarefa{
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getSession().removeAttribute("usuario.logado");
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/paginas/logout.html");
-        dispatcher.forward(req, resp);
+	public String executa(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().removeAttribute("usuarioLogado");
+		return "/WEB-INF/paginas/logout.html";
+//		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/paginas/logout.html");
+//        dispatcher.forward(req, resp);
 		
 //		PrintWriter writer = resp.getWriter();
 //		writer.println("<html><body>Usuário deslogado com sucesso</body><html>");
